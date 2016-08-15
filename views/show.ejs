@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <h2><%= item.name %></h2>
+    <p><%= item.price %></p>
+
+    <form action='/<%= item._id %>' method='post'>
+      <input type='hidden' name='_method' value='delete'>
+      <input type='submit' name='Delete me' value="Delete Item">
+    </form>
+  </body>
+</html>
