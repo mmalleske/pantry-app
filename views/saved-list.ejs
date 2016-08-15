@@ -7,7 +7,7 @@
   <body>
     <h1><%= title %></h1>
     <h2><%= savedList.name %></h2>
-    <form action='saved-lists/<%= savedList._id %>' method='post'>
+    <form action='/saved-lists/<%= savedList._id %>' method='post'>
       <input type='hidden' name='_method' value='delete'>
       <input type='submit' name='Delete me' value="Delete List">
     </form>

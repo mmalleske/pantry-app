@@ -80,9 +80,9 @@ router.patch('/:id', function(req, res, next) {
   })
 });
 //DELETE LIST
-router.delete('saved-lists/:id', function(req, res, next){
+router.delete('/saved-lists/:id', function(req, res, next){
   // delete specific item and redirect back to index
-  Item.findByIdAndRemove(req.params.id, req.body, function(err, item){
+  SavedList.findByIdAndRemove(req.params.id, req.body, function(err, item){
     if (err) console.log(err);
     res.redirect('/saved-lists');
   })
