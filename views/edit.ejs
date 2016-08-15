@@ -12,8 +12,8 @@
 
     <form method="post" action="/<%= item._id %>">
       <input type="hidden" name="_method" value="patch">
-      <input type="text" name="name" placeholder="<%= item.name %>">
-      <input type="text" name="price" placeholder="<%= item.price %>">
+      <input type="text" name="name" value="<%= item.name %>">
+      <input type="text" name="price" value="<%= item.price %>">
       <input type="submit" value="Update">
     </form>
   </body>
