@@ -6,5 +6,7 @@ var itemSchema = new mongoose.Schema({
  // tracking: {type: Boolean },
 });
 var Item = mongoose.model('Item', itemSchema);
+// var SavedItem = mongoose.model('SavedItem', itemSchema);
 
 module.exports = Item;
+// module.exports = SavedItem;

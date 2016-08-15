@@ -8,12 +8,12 @@
     <h1><%= title %></h1>
     <h2><%= item.name %></h2>
 
-    <p><%= item.price %></p>
+    <p>$<%= item.price %></p>
 
     <form method="post" action="/<%= item._id %>">
       <input type="hidden" name="_method" value="patch">
       <input type="text" name="name" value="<%= item.name %>">
-      <input type="text" name="price" value="<%= item.price %>">
+      $<input type="text" name="price" value="<%= item.price %>">
       <input type="submit" value="Update">
     </form>
   </body>

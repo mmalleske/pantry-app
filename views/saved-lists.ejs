@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
@@ -14,7 +13,7 @@
       <p><a href='saved-lists/<%= savedList._id %>'><%= savedList.name %></a></p>
       <form action='saved-lists/<%= savedList._id %>' method='post'>
         <input type='hidden' name='_method' value='delete'>
-        <input type='submit' name='Delete me' value="Delete Item">
+        <input type='submit' name='Delete me' value="Delete List">
       </form>
     <% }) %>
   </body>

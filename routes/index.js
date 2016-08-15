@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Item = require('../models/item');
+// var SavedItem = require('../models/item');
 var SavedList = require('../models/saved-list');
 
 //GET Current List
@@ -28,7 +29,7 @@ router.get('/saved-lists/:id', function(req, res, next) {
   var id = req.params.id;
   SavedList.findOne({_id: id }, function(err, savedList){
     if (err) console.log(err);
-    res.render('saved-list', { title: 'Saved List', savedList: savedList });
+    res.render('saved-list', { savedList: savedList });
   })
 });
 
@@ -48,6 +49,8 @@ router.get('/:id/edit', function(req, res, next) {
     res.render('edit', {title: 'Pantry', item: item})
   })
 });
+
+
 //CREATE NEW SAVED LIST
 router.post('/saved-lists/', function(req, res, next){
   // create a item then redirect to index
@@ -59,6 +62,22 @@ router.post('/saved-lists/', function(req, res, next){
     res.redirect('/saved-lists');
   });
 });
+
+
+
+
+// //CREATE Saved List Item
+// router.post('/saved-lists/:id', function(req, res, next){
+//   // create a item then redirect to index
+//   var newSavedItem = new SavedItem({
+//     name: req.body.name,
+//     price: req.body.price
+//   });
+//   newSavedItem.save(function(err, item){
+//     if (err) console.log(err);
+//     res.redirect('/saved-lists/:id');
+//   });
+// });
 //CREATE
 router.post('/', function(req, res, next){
   // create a item then redirect to index

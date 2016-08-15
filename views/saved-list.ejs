@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
     <h2><%= savedList.name %></h2>
     <form action='/saved-lists/<%= savedList._id %>' method='post'>
       <input type='hidden' name='_method' value='delete'>
       <input type='submit' name='Delete me' value="Delete List">
     </form>
+
+    <form method="post" action="/">
+      <input type="text" name="name" placeholder="Item Name">
+      $<input type="text" name="price" placeholder="0.00">
+      <input type="submit" value="Add Item">
+    </form>
+
+
   </body>
 </html>
