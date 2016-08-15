@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h2>Saved Lists:</h2>
+    <form method="post" action="/saved-lists/">
+      <input type="text" name="name" placeholder="List Name">
+      <input type="submit" value="Add List">
+    </form>
+    <% savedLists.forEach(function(savedList) { %>
+      <p><a href='saved-lists/<%= savedList._id %>'><%= savedList.name %></a></p>
+      <form action='/' method='post'>
+        <input type='hidden' name='_method' value='delete'>
+        <input type='submit' name='Delete me' value="Delete Item">
+      </form>
+    <% }) %>
+  </body>
+</html>
+
+
