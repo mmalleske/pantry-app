@@ -41,6 +41,7 @@ router.get('/saved-lists/:id', function(req, res, next) {
 //     res.render('show', {title: 'Item', item: item})
 //   })
 // });
+
 //EDIT
 router.get('/:id/edit', function(req, res, next) {
   var id = req.params.id;
@@ -63,22 +64,27 @@ router.post('/saved-lists/', function(req, res, next){
   });
 });
 
+//CREATE Saved List Item
+router.post('/saved-lists/:id', function(req, res, next){
+  // create a item then redirect to index
+  var newItem = new Item({
+    name: req.body.name,
+    price: req.body.price
+  })
+  newItem.save(function(err, item){
+    if (err) console.log(err);
+  })
+  SavedList.findById(req.params.id, function (err, savedList){
+    if (err) console.log(err);
+    savedList.listItems.push(newItem);
+    console.log(savedList.listItems);
+    savedList.save(res.redirect('/'));
 
+    // this.listItems.push(newItem);
+  })
+});
 
-
-// //CREATE Saved List Item
-// router.post('/saved-lists/:id', function(req, res, next){
-//   // create a item then redirect to index
-//   var newSavedItem = new SavedItem({
-//     name: req.body.name,
-//     price: req.body.price
-//   });
-//   newSavedItem.save(function(err, item){
-//     if (err) console.log(err);
-//     res.redirect('/saved-lists/:id');
-//   });
-// });
-//CREATE
+//CREATE ITEM
 router.post('/', function(req, res, next){
   // create a item then redirect to index
   var newItem = new Item({
@@ -87,8 +93,9 @@ router.post('/', function(req, res, next){
   });
   newItem.save(function(err, item){
     if (err) console.log(err);
-    res.redirect('/');
   });
+
+  res.redirect('/');
 });
 
 //UPDATE
