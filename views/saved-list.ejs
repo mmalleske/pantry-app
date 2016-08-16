@@ -17,6 +17,10 @@
     <% savedList.listItems.forEach(function(item) { %>
       <a href="/<%= item._id %>/edit"><p><%= item.name %></p></a>
       <p>$<%= item.price %></p>
+      <form action='/<%= item._id %>' method='post'>
+        <input type='hidden' name='_method' value='delete'>
+        <input type='submit' name='Delete me' value="Delete Item">
+      </form>
     <% }) %>
 
 

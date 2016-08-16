@@ -33,6 +33,7 @@ router.get('/saved-lists/:id', function(req, res, next) {
   })
 });
 
+
 //SHOW
 // router.get('/:id', function(req, res, next) {
 //   var id = req.params.id;
@@ -78,8 +79,7 @@ router.post('/saved-lists/:id', function(req, res, next){
     if (err) console.log(err);
     savedList.listItems.push(newItem);
     console.log(savedList.listItems);
-    savedList.save(res.redirect('/'));
-
+    savedList.save(res.redirect('/saved-lists/' + req.params.id));
     // this.listItems.push(newItem);
   })
 });
@@ -94,7 +94,6 @@ router.post('/', function(req, res, next){
   newItem.save(function(err, item){
     if (err) console.log(err);
   });
-
   res.redirect('/');
 });
 
@@ -105,6 +104,7 @@ router.patch('/:id', function(req, res, next) {
     res.redirect('/');
   })
 });
+
 //DELETE LIST
 router.delete('/saved-lists/:id', function(req, res, next){
   // delete specific item and redirect back to index
@@ -121,6 +121,8 @@ router.delete('/:id', function(req, res, next){
     res.redirect('/');
   })
 });
+//DELETE LIST ITEM
+
 
 
 
