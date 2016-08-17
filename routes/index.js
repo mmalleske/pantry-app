@@ -68,13 +68,13 @@ router.post('/saved-lists/', function(req, res, next){
 //CREATE Saved List Item
 router.post('/saved-lists/:id', function(req, res, next){
   // create a item then redirect to index
-  var newItem = new Item({
+  var newItem = ({
     name: req.body.name,
     price: req.body.price
   })
-  newItem.save(function(err, item){
-    if (err) console.log(err);
-  })
+  // newItem.save(function(err, item){
+  //   if (err) console.log(err);
+  // })
   SavedList.findById(req.params.id, function (err, savedList){
     if (err) console.log(err);
     savedList.listItems.push(newItem);
