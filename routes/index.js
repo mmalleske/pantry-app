@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Item = require('../models/item');
-// var SavedItem = require('../models/item');
+var Total = require('../models/total');
 var SavedList = require('../models/saved-list');
 
 //GET Current List
@@ -13,10 +13,12 @@ router.get('/', function(req, res, next) {
 });
 
 //NEW
-router.get('/new', function(req, res, next) {
-  //create new item form
-  res.render('new', { title: 'Pantry' });
-});
+// router.get('/new', function(req, res, next) {
+//   Total.find({}, function(err, totals){
+//     if (err) console.log(err);
+//     res.render('new', { total: totals });
+//   })
+// });
 //GET Saved Lists
 router.get('/saved-lists', function(req, res, next) {
   SavedList.find({}, function(err, savedLists){
