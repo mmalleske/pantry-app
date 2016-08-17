@@ -96,6 +96,22 @@ router.post('/', function(req, res, next){
   });
   res.redirect('/');
 });
+//POST SAVED LIST TO CURRENT LIST
+router.post('/add', function(req, res, next){
+  SavedList.findById(req.params.id, function (err, savedList){
+    if (err) console.log(err);
+    for (var i = 0; i < savedList.listItems.length; i++){
+      var newItem = new Item({
+        name: savedList.listItems[i].name,
+        price: savedList.listItems[i].price
+      });
+      newItem.save(function(err, item){
+        if (err) console.log(err);
+      });
+    }
+    res.redirect('/');
+  })
+});
 
 //UPDATE
 router.patch('/:id', function(req, res, next) {
