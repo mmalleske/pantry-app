@@ -10,7 +10,7 @@
 
     <p>$<%= item.price %></p>
 
-    <form method="post" action="/<%= item._id %>">
+    <form method="post" action="/saved-lists/<%= savedList._id %>/list_items/<%= item._id %>">
       <input type="hidden" name="_method" value="patch">
       <input type="text" name="name" value="<%= item.name %>">
       $<input type="text" name="price" value="<%= item.price %>">
