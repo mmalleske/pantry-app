@@ -10,18 +10,16 @@
 
     <form method="post" action="/saved-lists/<%= savedList._id %>">
       <input type="text" name="name" placeholder="Item Name">
-      $<input type="text" name="price" placeholder="0.00">
+      $<input type="number" name="price" placeholder="0.00">
       <input type="submit" value="Add Item">
     </form>
 
     <% savedList.listItems.forEach(function(item) { %>
       <a href="/<%= item._id %>/edit"><p><%= item.name %></p></a>
       <p>$<%= item.price %></p>
-      <form action='/<%= item._id %>' method='post'>
-        <input type='hidden' name='_method' value='delete'>
-        <input type='submit' name='Delete me' value="Delete Item">
-      </form>
     <% }) %>
+
+    <p>Total: <%= savedList.total %></p>
 
     <form method='post' action='/add'>
       <input type="submit" value="Add to Current List">

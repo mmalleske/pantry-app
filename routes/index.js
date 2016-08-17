@@ -12,13 +12,6 @@ router.get('/', function(req, res, next) {
   })
 });
 
-//NEW
-// router.get('/new', function(req, res, next) {
-//   Total.find({}, function(err, totals){
-//     if (err) console.log(err);
-//     res.render('new', { total: totals });
-//   })
-// });
 //GET Saved Lists
 router.get('/saved-lists', function(req, res, next) {
   SavedList.find({}, function(err, savedLists){
@@ -26,6 +19,7 @@ router.get('/saved-lists', function(req, res, next) {
     res.render('saved-lists', { title: 'Saved Lists', savedLists: savedLists });
   })
 });
+
 //Get Individual List
 router.get('/saved-lists/:id', function(req, res, next) {
   var id = req.params.id;
@@ -34,16 +28,6 @@ router.get('/saved-lists/:id', function(req, res, next) {
     res.render('saved-list', { savedList: savedList });
   })
 });
-
-
-//SHOW
-// router.get('/:id', function(req, res, next) {
-//   var id = req.params.id;
-//   Item.findOne({_id: id }, function(err, item){
-//     if (err) console.log(err);
-//     res.render('show', {title: 'Item', item: item})
-//   })
-// });
 
 //EDIT
 router.get('/:id/edit', function(req, res, next) {
@@ -54,12 +38,12 @@ router.get('/:id/edit', function(req, res, next) {
   })
 });
 
-
 //CREATE NEW SAVED LIST
 router.post('/saved-lists/', function(req, res, next){
   // create a item then redirect to index
   var newSavedList = new SavedList({
-    name: req.body.name
+    name: req.body.name,
+    total: 0
   });
   newSavedList.save(function(err, savedList){
     if (err) console.log(err);
@@ -70,19 +54,18 @@ router.post('/saved-lists/', function(req, res, next){
 //CREATE Saved List Item
 router.post('/saved-lists/:id', function(req, res, next){
   // create a item then redirect to index
-  var newItem = ({
+  var newItem = new Item({
     name: req.body.name,
-    price: req.body.price
+    price: parseInt(req.body.price)
   })
-  // newItem.save(function(err, item){
-  //   if (err) console.log(err);
-  // })
+  newItem.save(function(err, item){
+    if (err) console.log(err);
+  })
   SavedList.findById(req.params.id, function (err, savedList){
     if (err) console.log(err);
     savedList.listItems.push(newItem);
-    console.log(savedList.listItems);
+    savedList.total += newItem.price;
     savedList.save(res.redirect('/saved-lists/' + req.params.id));
-    // this.listItems.push(newItem);
   })
 });
 
