@@ -11,11 +11,15 @@
     </form>
     <% savedLists.forEach(function(savedList) { %>
       <p><a href='saved-lists/<%= savedList._id %>'><%= savedList.name %></a></p>
-      <form action='saved-lists/<%= savedList._id %>' method='post'>
-        <input type='hidden' name='_method' value='delete'>
-        <input type='submit' name='Delete me' value="Delete List">
-      </form>
+      <% if (savedList.current === false){ %>
+        <form action='saved-lists/<%= savedList._id %>' method='post'>
+          <input type='hidden' name='_method' value='delete'>
+          <input type='submit' name='Delete me' value="Delete List">
+        </form>
+        <% } %>
     <% }) %>
+    <a href='/'>Current List</a>
+    <a href='/saved-lists'>My Lists</a>
   </body>
 </html>
 

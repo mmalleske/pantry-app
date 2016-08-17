@@ -8,14 +8,14 @@ var SavedList = require('../models/saved-list');
 router.get('/', function(req, res, next) {
   // Item.find({}, function(err, items){
   //   if (err) console.log(err);
-    res.render('index', { title: 'Pantry' });
+  //  res.render('index', { title: 'Pantry' });
   // })
 
   // 1. Get SavedList where current is true (first one)
-  // SavedList.find({current: true}, function(err, savedList){
-  //   if (err) console.log (err);
-  //   res.redirect('/saved-lists/' + savedList._id);
-  // })
+  SavedList.findOne({current: true}, function(err, savedList){
+    if (err) console.log (err);
+    res.redirect('/saved-lists/' + savedList._id);
+  })
   // 2. Redirect to show page based on savedList ID
 });
 
@@ -157,7 +157,18 @@ router.delete('/:id', function(req, res, next){
   })
 });
 //DELETE LIST ITEM
-
+router.delete('/saved-lists/:saved_list_id/list_items/:list_item_id/', function(req, res, next) {
+  var savedListId = req.params.saved_list_id;
+  var listItemId = req.params.list_item_id;
+  SavedList.findById(savedListId, function(err, savedList){
+    if (err) console.log(err);
+    var item = savedList.listItems.id(listItemId);
+    item.remove();
+    savedList.save();
+    //res.redirect('/saved-lists/' + savedListId);
+    res.redirect('/');
+  })
+});
 
 
 
