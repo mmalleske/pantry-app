@@ -12,6 +12,7 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   color: #696D7D;
 }
+
 .title-holder{
   text-align: center;
   color: #FFFDF7;
@@ -35,16 +36,33 @@ h2{
 a {
   color: #68B0AB;
 }
-.item-form{
+.list-header{
+  display: inline;
   background-color: #C8D5B9;
+}
+.item-form{
   padding: 2%;
 }
 .item-holder{
   background-color: #FAF3DD;
   padding: 1%;
-  margin: 1% 0;
+  text-align: left;
+}
+td{
+  border-top: solid #C8D5B9 2px;
+}
+.item-info{
+  width: 40%;
+  padding: 1%;
+
+  border-radius: 3px;
+}
+.check{
+  width: 10%;
   text-align: center;
 }
-.item-holder > * {
-  display: inline-block;
+.total{
+  background-color: #FAF3DD;
+  padding: 1%;
+  text-align: left;
 }
