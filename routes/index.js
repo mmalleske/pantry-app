@@ -100,22 +100,23 @@ router.post('/', function(req, res, next){
   });
   res.redirect('/');
 });
-// //POST SAVED LIST TO CURRENT LIST
-// router.post('/add', function(req, res, next){
-//   SavedList.findById(req.params.id, function (err, savedList){
-//     if (err) console.log(err);
-//     for (var i = 0; i < savedList.listItems.length; i++){
-//       var newItem = new Item({
-//         name: savedList.listItems[i].name,
-//         price: savedList.listItems[i].price
-//       });
-//       newItem.save(function(err, item){
-//         if (err) console.log(err);
-//       });
-//     }
-//     res.redirect('/');
-//   })
-// });
+//POST SAVED LIST ITEMS TO CURRENT LIST
+router.post('/saved-lists/:id', function(req, res, next){
+  SavedList.findOne({current: true}, function (err, savedList){
+    if (err) console.log(err);
+    for (var i = 0; i < savedList.listItems.length; i++){
+      var newItem = new Item({
+        name: savedList.listItems[i].name,
+        price: savedList.listItems[i].price
+      });
+      savedList.listItems.push(newItem);
+      // newItem.save(function(err, item){
+      //   if (err) console.log(err);
+      // });
+    }
+    res.redirect('/saved-lists/:id');
+  })
+});
 
 //UPDATE
 // router.patch('/:id', function(req, res, next) {
@@ -158,15 +159,19 @@ router.delete('/:id', function(req, res, next){
 });
 //DELETE LIST ITEM
 router.delete('/saved-lists/:saved_list_id/list_items/:list_item_id/', function(req, res, next) {
+  console.log('delete');
   var savedListId = req.params.saved_list_id;
   var listItemId = req.params.list_item_id;
   SavedList.findById(savedListId, function(err, savedList){
     if (err) console.log(err);
     var item = savedList.listItems.id(listItemId);
+    Number((item.price).toFixed(2));
+    savedList.total -= item.price;
+    Number(Math.round(savedList.total+'e'+2)+'e-'+2);
     item.remove();
     savedList.save();
     //res.redirect('/saved-lists/' + savedListId);
-    res.redirect('/');
+    res.redirect('/saved-lists/' + savedListId);
   })
 });
 
