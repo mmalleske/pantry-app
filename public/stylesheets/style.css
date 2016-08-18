@@ -1,15 +1,32 @@
 /*
+FFFDF7 = Baby Powder
 FAF3DD = Beige
 C8D5B9 = Pale Silver
 8FC0A9 = Eton Blue
 68B0AB = Sheen Green
 696D7D = Dim Gray
+
 */
 
 body {
-  /*padding: 50px;*/
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   color: #696D7D;
+}
+.title-holder{
+  text-align: center;
+  color: #FFFDF7;
+  background-image: url('/images/pantry_hero.jpg');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.logo {
+  height: 10%;
+  width: 10%;
+}
+.title{
+  font-size: 55px;
 }
 h2{
   background-color: #68B0AB;

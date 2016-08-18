@@ -5,10 +5,17 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <section class="title-holder">
+      <h1 class='title'><%= title %></h1>
+      <img class='logo' src='/images/pantrylogo.png'>
 
-    <h3><a href='/saved-lists'>Add a List</a></h3>
+      <p>Make grocery shopping easier.</p>
+
+      <form action='/saved-lists/current'>
+        <input type='submit' name='SignIn ' value="Sign In">
+      </form>
+    </section>
+
 
   </body>
 </html>

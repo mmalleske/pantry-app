@@ -3,9 +3,12 @@ var router = express.Router();
 var Item = require('../models/item');
 var Total = require('../models/total');
 var SavedList = require('../models/saved-list');
-
+//Get Home
+router.get('/', function(req, res, next){
+  res.render('index', { title: 'Pantry' });
+});
 //GET Current List
-router.get('/', function(req, res, next) {
+router.get('/saved-lists/current', function(req, res, next) {
   // Item.find({}, function(err, items){
   //   if (err) console.log(err);
   //  res.render('index', { title: 'Pantry' });
@@ -88,33 +91,38 @@ router.post('/saved-lists/:id', function(req, res, next){
   })
 });
 
-//CREATE ITEM
-router.post('/', function(req, res, next){
-  // create a item then redirect to index
-  var newItem = new Item({
-    name: req.body.name,
-    price: req.body.price
-  });
-  newItem.save(function(err, item){
-    if (err) console.log(err);
-  });
-  res.redirect('/');
-});
+// //CREATE ITEM
+// router.post('/', function(req, res, next){
+//   // create a item then redirect to index
+//   var newItem = new Item({
+//     name: req.body.name,
+//     price: req.body.price
+//   });
+//   newItem.save(function(err, item){
+//     if (err) console.log(err);
+//   });
+//   res.redirect('/');
+// });
+
 //POST SAVED LIST ITEMS TO CURRENT LIST
-router.post('/saved-lists/:id', function(req, res, next){
-  SavedList.findOne({current: true}, function (err, savedList){
+router.post('/saved-lists/:id/add', function(req, res, next){
+  console.log("Hello World!");
+  SavedList.findById(req.params.id, function (err, savedList){
     if (err) console.log(err);
-    for (var i = 0; i < savedList.listItems.length; i++){
-      var newItem = new Item({
-        name: savedList.listItems[i].name,
-        price: savedList.listItems[i].price
-      });
-      savedList.listItems.push(newItem);
-      // newItem.save(function(err, item){
-      //   if (err) console.log(err);
-      // });
-    }
-    res.redirect('/saved-lists/:id');
+    SavedList.findOne({current: true}, function (err, currentList){
+      if (err) console.log(err);
+      for (var i = 0; i < savedList.listItems.length; i++){
+        var newItem = new Item({
+          name: savedList.listItems[i].name,
+          price: savedList.listItems[i].price
+        });
+        currentList.listItems.push(newItem);
+        currentList.total += newItem.price;
+      }
+      currentList.save(function(err, item){
+         res.redirect('/saved-lists/current');
+       });
+    })
   })
 });
 
@@ -125,6 +133,7 @@ router.post('/saved-lists/:id', function(req, res, next){
 //     res.redirect('/');
 //   })
 // });
+
 //UPDATE LIST ITEM
 router.patch('/saved-lists/:saved_list_id/list_items/:list_item_id/', function(req, res, next) {
   var savedListId = req.params.saved_list_id;

@@ -13,6 +13,35 @@
       $<input type="text" name="price" placeholder="0.00">
       <input type="submit" value="Add Item">
     </form>
+    <table>
+      <caption><%= savedList.name %></caption>
+      <thead>
+        <tr>
+          <th><%= savedList.name %></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% savedList.listItems.forEach(function(item) { %>
+        <tr>
+          <td>
+            <input type="checkbox">
+          </td>
+          <td>
+            <a href="/saved-lists/<%= savedList._id %>/list_items/<%= item._id %>/edit"><p><%= item.name %></p></a>
+          </td>
+          <td>
+            <p>$<%= item.price %></p>
+          </td>
+          <td>
+            <form action='/saved-lists/<%= savedList._id %>/list_items/<%= item._id %>' method="post">
+              <input type='hidden' name='_method' value='delete'>
+              <input type='submit' name='Delete me' value="Delete Item">
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+      </tbody>
+    </table>
 
     <% savedList.listItems.forEach(function(item) { %>
       <div class="item-holder">
@@ -27,7 +56,7 @@
     <% }) %>
 
     <% if (savedList.current === false){ %>
-      <form action='/saved-lists/<%= savedList._id %>' method="post">
+      <form action='/saved-lists/<%= savedList._id %>/add' method="post">
         <input type='submit' name='Add All ' value="Add All to Current List">
       </form>
     <% } %>
