@@ -1,8 +1,68 @@
+/*
+FFFDF7 = Baby Powder
+FAF3DD = Beige
+C8D5B9 = Pale Silver
+8FC0A9 = Eton Blue
+68B0AB = Sheen Green
+696D7D = Dim Gray
+
+*/
+
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: #696D7D;
 }
 
+.title-holder{
+  text-align: center;
+  color: #FFFDF7;
+  background-image: url('/images/pantry_hero.jpg');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.logo {
+  height: 10%;
+  width: 10%;
+}
+.title{
+  font-size: 55px;
+}
+h2{
+  background-color: #68B0AB;
+  padding: 3%;
+}
 a {
-  color: #00B7FF;
+  color: #68B0AB;
+}
+.list-header{
+  display: inline;
+  background-color: #C8D5B9;
+}
+.item-form{
+  padding: 2%;
+}
+.item-holder{
+  background-color: #FAF3DD;
+  padding: 1%;
+  text-align: left;
+}
+td{
+  border-top: solid #C8D5B9 2px;
+}
+.item-info{
+  width: 40%;
+  padding: 1%;
+
+  border-radius: 3px;
+}
+.check{
+  width: 10%;
+  text-align: center;
+}
+.total{
+  background-color: #FAF3DD;
+  padding: 1%;
+  text-align: left;
 }

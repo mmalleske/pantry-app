@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+
+    <table>
+      <thead>
+        <tr class="list-header">
+          <th><h2><%= savedList.name %></h2></th>
+          <th>
+            <form class="item-form" method="post" action="/saved-lists/<%= savedList._id %>">
+              <input type="text" name="name" placeholder="Item Name">
+              $<input type="text" name="price" placeholder="0.00">
+              <input type="submit" value="Add Item">
+            </form>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+      <% savedList.listItems.forEach(function(item) { %>
+        <tr class="item-holder">
+          <td class="check">
+            <input type="checkbox">
+          </td>
+          <td class="item-info">
+            <a href="/saved-lists/<%= savedList._id %>/list_items/<%= item._id %>/edit"><p><%= item.name %></p></a>
+          </td>
+          <td class="item-info">
+            <p>$<%= item.price %></p>
+          </td>
+          <td class="check">
+            <form action='/saved-lists/<%= savedList._id %>/list_items/<%= item._id %>' method="post">
+              <input type='hidden' name='_method' value='delete'>
+              <input type='submit' name='Delete me' value="Delete Item">
+            </form>
+          </td>
+        <% }) %>
+        <tr class="total">
+          <td>
+            <p>Total: <%= savedList.total.toFixed(2) %></p>
+            <% if (savedList.current === false){ %>
+              <form action='/saved-lists/<%= savedList._id %>/add' method="post">
+                <input type='submit' name='Add All ' value="Add All to Current List">
+              </form>
+            <% } %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <footer>
+      <a href='/saved-lists/current'>Current List</a>
+      <a href='/saved-lists'>My Lists</a>
+    </footer>
+
+  </body>
+</html>
