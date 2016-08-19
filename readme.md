@@ -26,7 +26,7 @@ I scaled the project as I worked, constantly reprioritizing with my Trello board
 
 I finished with CSS styling, but am leaving open for much more front end work. 
 
-![Planning Models](public/images/ERDS.jpg)
+![Planning Models](public/images/ERDS.JPG)
 
 ![Personal Scrum](public/images/trello.png)
 
@@ -34,11 +34,17 @@ I finished with CSS styling, but am leaving open for much more front end work.
 
 ## User Stories
 A user lands on the home page. 
+
 Users are directed to their current list at this time. (In the future, the user will be given a modal to sign up or sign into the app). 
+
 A user can immediately add items to their current list.
+
 An item name is required. If the user enters price information it will automatically be added to the total. 
+
 A user can also create a saved grocery list (e.g. cleaning supplies).
+
 A user can populate their current list with all items from any saved list. 
+
 Users can also edit or delete individual list items.
 ![Current List](public/images/current-list.png)
 ![Saved Lists](public/images/saved-lists.png)
