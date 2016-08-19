@@ -19,7 +19,25 @@ body {
   background-size: cover;
   font-family: 'Quicksand', sans-serif;
 }
+a {
+  color: #68B0AB;
 
+}
+.top-heading{
+  background-color: #68B0AB;
+  padding: 2%;
+  color: #FFFDF7;
+  margin: 0;
+}
+.saved-list{
+  background-color: #C8D5B9;
+  color: #FFFDF7;
+  font-size: 2em;
+}
+
+.saved-list > *{
+  display: inline;
+}
 .title-holder{
   text-align: center;
   color: #FFFDF7;
@@ -54,22 +72,20 @@ input{
   color: #FFFDF7;
   margin: 1% 1%;
   border: none;
+  padding: 1%;
+  border-radius: 5px;
+  text-decoration: none;
 }
 
-h2{
-  background-color: #68B0AB;
-  padding: 3%;
-}
-a {
-  color: #68B0AB;
-}
 table{
   border-collapse: collapse;
   border-spacing:0;
 }
 .list-header{
-  display: inline;
   background-color: #C8D5B9;
+}
+.list-header > *{
+  display: inline;
 }
 .item-form{
   padding: 2%;
@@ -83,25 +99,33 @@ td{
   border-top: solid #C8D5B9 2px;
 }
 .item-info{
-  width: 30%;
+  width: 50%;
   font-weight: bolder;
   font-size: 1.5em;
 }
-input[type="checkbox"] {
-    content: url('images/checkbox-empty.png');
-}
-input[type="checkbox"]:checked{
-    content: url('images/checkbox.png');
-}
+
 .check{
   width: 10%;
   text-align: center;
+}
+.delete-item{
+  padding-right: 2%;
+}
+footer{
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  padding: 3%;
 }
 
 .total{
   border-top: solid #C8D5B9 2px;
   background-color: #FAF3DD;
-  padding: 1% 3%;
-  text-align: right;
+  padding: 0 3%;
   font-size: 2em;
+  text-align: right;
+}
+
+.total > *{
+  display: inline;
 }

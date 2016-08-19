@@ -6,11 +6,7 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1>Edit this Item</h1>
-    <h2><%= item.name %></h2>
-
-    <p>$<%= item.price %></p>
-
+    <h1 class="top-heading">Edit this Item</h1>
     <form method="post" action="/saved-lists/<%= savedList._id %>/list_items/<%= item._id %>">
       <input type="hidden" name="_method" value="patch">
       <input type="text" name="name" value="<%= item.name %>">
