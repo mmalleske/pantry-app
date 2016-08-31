@@ -1,25 +1,60 @@
 var express = require('express');
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 var router = express.Router();
 var Item = require('../models/item');
 var Total = require('../models/total');
 var SavedList = require('../models/saved-list');
+var newSearch = [{ name: "Item", price: 0.00, image: "Image Url", id: Number}];
 //Get Home
 router.get('/', function(req, res, next){
   res.render('index', { title: 'Pantry' });
 });
+//Get Api Page
+router.get('/api', function(req, res, next){
+  console.log("This is the query: " + req.query.items);
+  res.render('api', { title: 'Pantry', newSearch: newSearch  });
+});
+//SEARCH API
+router.post('/api/', function(req, res, next){
+  var searchTerm = req.body.name;
+  function reqApi (url){
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url, false);
+    xhr.send();
+    return xhr.responseText;
+  }
+  var json_obj = JSON.parse(reqApi("http://api.walmartlabs.com/v1/search?query=" + searchTerm + "&format=json&facet=on&apiKey=ur7cd9rbm7bxg5astk8q4ufu"));
+  for (var i = 1; i < json_obj.items.length; i++){
+    newSearch.push({name: json_obj.items[i].name,
+      price: json_obj.items[i].salePrice,
+      image: json_obj.items[i].thumbnailImage,
+      id: i });
+  }
+  console.log(newSearch);
+  res.redirect('/api/');
+});
+//post search item to current list
+router.post('/api/add-search/:id', function(req, res, next){
+  console.log("Can I print an id of :" + req.body);
+  SavedList.findOne({current: true}, function (err, currentList){
+    if (err) console.log(err);
+    var newItem = new Item({
+      name: newSearch[i].name,
+      price: newSearch[i].price
+    });
+    currentList.listItems.push(newItem);
+    currentList.total += newItem.price;
+    currentList.save(function(err, item){
+       res.redirect('/saved-lists/current');
+     });
+  })
+});
 //GET Current List
 router.get('/saved-lists/current', function(req, res, next) {
-  // Item.find({}, function(err, items){
-  //   if (err) console.log(err);
-  //  res.render('index', { title: 'Pantry' });
-  // })
-
-  // 1. Get SavedList where current is true (first one)
   SavedList.findOne({current: true}, function(err, savedList){
     if (err) console.log (err);
     res.redirect('/saved-lists/' + savedList._id);
   })
-  // 2. Redirect to show page based on savedList ID
 });
 
 //GET Saved Lists
@@ -30,6 +65,19 @@ router.get('/saved-lists', function(req, res, next) {
   })
 });
 
+//CREATE NEW SAVED LIST
+router.post('/saved-lists/', function(req, res, next){
+  // create a item then redirect to index
+  var newSavedList = new SavedList({
+    name: req.body.name,
+    total: 0,
+    current: false
+  });
+  newSavedList.save(function(err, savedList){
+    if (err) console.log(err);
+    res.redirect('/saved-lists');
+  });
+});
 //Get Individual List
 router.get('/saved-lists/:id', function(req, res, next) {
   var id = req.params.id;
@@ -59,19 +107,7 @@ router.get('/saved-lists/:saved_list_id/list_items/:list_item_id/edit', function
   })
 })
 
-//CREATE NEW SAVED LIST
-router.post('/saved-lists/', function(req, res, next){
-  // create a item then redirect to index
-  var newSavedList = new SavedList({
-    name: req.body.name,
-    total: 0,
-    current: false
-  });
-  newSavedList.save(function(err, savedList){
-    if (err) console.log(err);
-    res.redirect('/saved-lists');
-  });
-});
+
 
 //CREATE Saved List Item
 router.post('/saved-lists/:id', function(req, res, next){

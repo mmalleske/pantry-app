@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico|Quicksand" rel="stylesheet">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h2>Request from Wal-Mart API</h2>
+    <form method="post" action="/api/">
+      <input type="text" name="name" placeholder="Search your Store">
+      <input class="button" type="submit" value="Search">
+    </form>
+    <div class="items-list">
+    <% for (var i = 0; i < newSearch.length; i++){ %>
+      <div>
+        <h3><%= newSearch[i].name %></h3>
+        <p><%= newSearch[i].price %></p>
+        <img src=<%= newSearch[i].image %> alt='image'>
+        <form action='/api/add-search/:id' method="post">
+          <input class="button" type='submit' name='Add All ' value="Add All to Current List">
+        </form>
+      </div>
+    <% } %>
+
+    <footer>
+      <a class='button' href='/saved-lists/current'>Current List</a>
+      <a class='button' href='/saved-lists'>My Lists</a>
+    </footer>
+
+  </body>
+</html>
+
+
