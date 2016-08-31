@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 
 var searchItemSchema = new mongoose.Schema({
  name: { type: String, required: true},
- price: { type: Number}
+ price: { type: Number},
+ image: { type: String}
  // tracking: {type: Boolean },
 });
 var SearchItem = mongoose.model('SearchItem', searchItemSchema);

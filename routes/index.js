@@ -4,15 +4,22 @@ var router = express.Router();
 var Item = require('../models/item');
 var Total = require('../models/total');
 var SavedList = require('../models/saved-list');
-var newSearch = [{ name: "Item", price: 0.00, image: "Image Url", id: Number}];
+var SearchItem = require('../models/search-item');
+var newSearch = [];
+
+
 //Get Home
 router.get('/', function(req, res, next){
   res.render('index', { title: 'Pantry' });
 });
 //Get Api Page
 router.get('/api', function(req, res, next){
+  SearchItem.find({}, function(err, newSearchItem){
+    if (err) console.log(err);
+    res.render('api', { title: 'Pantry', newSearch: newSearch  });
+  })
   console.log("This is the query: " + req.query.items);
-  res.render('api', { title: 'Pantry', newSearch: newSearch  });
+  //res.render('api', { title: 'Pantry', newSearchItem: newSearchItem  });
 });
 //SEARCH API
 router.post('/api/', function(req, res, next){
@@ -24,11 +31,18 @@ router.post('/api/', function(req, res, next){
     return xhr.responseText;
   }
   var json_obj = JSON.parse(reqApi("http://api.walmartlabs.com/v1/search?query=" + searchTerm + "&format=json&facet=on&apiKey=ur7cd9rbm7bxg5astk8q4ufu"));
+  newSearch.length = 0;
+  SearchItem.remove({}, function(err) {
+    if (err) {console.log(err)};
+  });
   for (var i = 1; i < json_obj.items.length; i++){
-    newSearch.push({name: json_obj.items[i].name,
+    newSearchItem = new SearchItem({
+      name: json_obj.items[i].name,
       price: json_obj.items[i].salePrice,
-      image: json_obj.items[i].thumbnailImage,
-      id: i });
+      image: json_obj.items[i].thumbnailImage
+    });
+    newSearchItem.save();
+    newSearch.push(newSearchItem);
   }
   console.log(newSearch);
   res.redirect('/api/');
@@ -87,14 +101,6 @@ router.get('/saved-lists/:id', function(req, res, next) {
   })
 });
 
-// //EDIT
-// router.get('/:id/edit', function(req, res, next) {
-//   var id = req.params.id;
-//   Item.findOne({_id: id }, function(err, item){
-//     if (err) console.log(err);
-//     res.render('edit', {title: 'Pantry', item: item})
-//   })
-// });
 //GET LIST ITEM
 router.get('/saved-lists/:saved_list_id/list_items/:list_item_id/edit', function(req, res, next){
   var savedListId = req.params.saved_list_id;
@@ -106,8 +112,6 @@ router.get('/saved-lists/:saved_list_id/list_items/:list_item_id/edit', function
     res.render('edit', {title: 'Pantry', savedList: savedList, item: item})
   })
 })
-
-
 
 //CREATE Saved List Item
 router.post('/saved-lists/:id', function(req, res, next){
@@ -127,18 +131,7 @@ router.post('/saved-lists/:id', function(req, res, next){
   })
 });
 
-// //CREATE ITEM
-// router.post('/', function(req, res, next){
-//   // create a item then redirect to index
-//   var newItem = new Item({
-//     name: req.body.name,
-//     price: req.body.price
-//   });
-//   newItem.save(function(err, item){
-//     if (err) console.log(err);
-//   });
-//   res.redirect('/');
-// });
+
 
 //POST SAVED LIST ITEMS TO CURRENT LIST
 router.post('/saved-lists/:id/add', function(req, res, next){
@@ -162,13 +155,6 @@ router.post('/saved-lists/:id/add', function(req, res, next){
   })
 });
 
-//UPDATE
-// router.patch('/:id', function(req, res, next) {
-//   Item.findByIdAndUpdate(req.params.id, req.body, function(err, item){
-//     if (err) console.log(err);
-//     res.redirect('/');
-//   })
-// });
 
 //UPDATE LIST ITEM
 router.patch('/saved-lists/:saved_list_id/list_items/:list_item_id/', function(req, res, next) {
