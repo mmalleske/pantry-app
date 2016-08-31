@@ -16,10 +16,8 @@ router.get('/', function(req, res, next){
 router.get('/api', function(req, res, next){
   SearchItem.find({}, function(err, newSearchItem){
     if (err) console.log(err);
-    res.render('api', { title: 'Pantry', newSearch: newSearch  });
+    res.render('api', { title: 'Pantry', newSearchItem: newSearchItem  });
   })
-  console.log("This is the query: " + req.query.items);
-  //res.render('api', { title: 'Pantry', newSearchItem: newSearchItem  });
 });
 //SEARCH API
 router.post('/api/', function(req, res, next){
@@ -39,28 +37,33 @@ router.post('/api/', function(req, res, next){
     newSearchItem = new SearchItem({
       name: json_obj.items[i].name,
       price: json_obj.items[i].salePrice,
-      image: json_obj.items[i].thumbnailImage
+      image: json_obj.items[i].thumbnailImage,
+      largeImage: json_obj.items[i].largeImage
     });
+    // console.log("link to this image: " + newSearchItem[i].largeImage);
     newSearchItem.save();
     newSearch.push(newSearchItem);
   }
-  console.log(newSearch);
+  // console.log(newSearch);
   res.redirect('/api/');
 });
 //post search item to current list
 router.post('/api/add-search/:id', function(req, res, next){
-  console.log("Can I print an id of :" + req.body);
-  SavedList.findOne({current: true}, function (err, currentList){
+  SearchItem.findById(req.params.id, function (err, searchItem){
     if (err) console.log(err);
-    var newItem = new Item({
-      name: newSearch[i].name,
-      price: newSearch[i].price
-    });
-    currentList.listItems.push(newItem);
-    currentList.total += newItem.price;
-    currentList.save(function(err, item){
-       res.redirect('/saved-lists/current');
-     });
+    SavedList.findOne({current: true}, function (err, currentList){
+      if (err) console.log(err);
+      var newItem = new Item({
+        name: searchItem.name,
+        price: searchItem.price
+      });
+      // console.log("FUck" + searchItem);
+      currentList.listItems.push(newItem);
+      currentList.total += newItem.price;
+      currentList.save(function(err, item){
+         res.redirect('/api');
+       });
+    })
   })
 });
 //GET Current List
@@ -135,7 +138,6 @@ router.post('/saved-lists/:id', function(req, res, next){
 
 //POST SAVED LIST ITEMS TO CURRENT LIST
 router.post('/saved-lists/:id/add', function(req, res, next){
-  console.log("Hello World!");
   SavedList.findById(req.params.id, function (err, savedList){
     if (err) console.log(err);
     SavedList.findOne({current: true}, function (err, currentList){

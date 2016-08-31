@@ -1,31 +1,37 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Pacifico|Quicksand" rel="stylesheet">
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h2 class="top-heading">My Lists:</h2>
-    <form method="post" action="/saved-lists/">
-      <input type="text" name="name" placeholder="List Name">
-      <input class="button" type="submit" value="Add List">
-    </form>
-    <% savedLists.forEach(function(savedList) { %>
-    <div class='saved-list'>
-      <p><a href='saved-lists/<%= savedList._id %>'><%= savedList.name %></a></p>
-      <% if (savedList.current === false){ %>
-        <form action='saved-lists/<%= savedList._id %>' method='post'>
-          <input type='hidden' name='_method' value='delete'>
-          <input class="button" type='submit' name='Delete me' value="Delete List">
+<% include partials/header %>
+  <div class="list-header">
+    <h2>My Lists</h2>
+  </div>
+  <table>
+    <thead>
+    </thead>
+    <tbody>
+      <tr class="item-holder">
+        <form method="post" action="/saved-lists/">
+          <td><input type="text" name="name" placeholder="List Name"></td>
+          <td><input class="button" type="submit" value="Add List"></td>
         </form>
+      </tr>
+      <% savedLists.forEach(function(savedList) { %>
+      <tr class="item-holder">
+        <% if (savedList.current === false){ %>
+        <td class="item-info">
+          <a href='saved-lists/<%= savedList._id %>'><%= savedList.name %></a>
+        </td>
+        <td class = "delete-item">
+          <form action='saved-lists/<%= savedList._id %>' method='post'>
+            <input type='hidden' name='_method' value='delete'>
+            <input class="button" type='submit' name='Delete me' value="Delete List">
+          </form>
+        </td>
         <% } %>
-    </div>
-    <% }) %>
-    <footer>
-      <a class='button' href='/saved-lists/current'>Current List</a>
-      <a class='button' href='/saved-lists'>My Lists</a>
-    </footer>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+
+  <footer>
+  </footer>
 
   </body>
 </html>

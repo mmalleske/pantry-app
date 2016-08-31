@@ -1,10 +1,13 @@
 /*
 FFFDF7 = Baby Powder
 FAF3DD = Beige
+F2EBD5 = Eggshell
 C8D5B9 = Pale Silver
 8FC0A9 = Eton Blue
+78A590 = Polished Pins
 68B0AB = Sheen Green
 696D7D = Dim Gray
+D1CBB8 = Pastel Gray
 
 */
 
@@ -42,92 +45,59 @@ body {
 .tagline{
   font-size: 24px;
 }
+
+
 /*Main Pages*/
-.list-header{
-  background-color: #68B0AB;
+.page-header{
+  background: linear-gradient(#68B0AB, #5B9B97);
+  color: #FFFDF7;
+  border-bottom: 3px solid #FFFDF7;
+  font-family: 'Pacifico', cursive;
+}
+.page-header > *{
+  display: inline-block;
+  padding: 1%;
 }
 
-a {
-  text-decoration: none;
-  color: #68B0AB;
-}
-.top-heading{
-  background-color: #68B0AB;
-  padding: 2%;
+.list-header{
+  background: linear-gradient(#8FC0A9, #78A590);
   color: #FFFDF7;
+  border-bottom: 3px solid #FFFDF7;
+}
+.list-header > *{
+  padding: 1%;
+}
+.list-header h2{
   margin: 0;
 }
-.saved-list{
-  background-color: #C8D5B9;
-  color: #FFFDF7;
-  font-size: 2em;
-}
-
-.saved-list > *{
-  display: inline;
-}
-
-input{
-  padding: 1%;
-  border-radius: 5px;
-  font-size: 20px;
-  font-family: 'Quicksand', sans-serif;
-}
-.button{
-  background-color: #68B0AB;
-  padding: 1%;
-  color: #FFFDF7;
-  margin: 1% 1%;
-  border: none;
-  padding: 1%;
-  border-radius: 5px;
-  text-decoration: none;
-}
-
 table{
   border-collapse: collapse;
   border-spacing:0;
+  width: 100%;
 }
-.list-header{
-  background-color: #C8D5B9;
-}
-.list-header > *{
-  display: inline;
-}
-.item-form{
-  padding: 2%;
-}
-.item-holder{
-  background-color: #FAF3DD;
+input{
   padding: 1%;
-  text-align: left;
-}
-td{
-  border-top: solid #C8D5B9 2px;
-}
-.item-info{
-  width: 50%;
-  font-weight: bolder;
-  font-size: 1.5em;
 }
 
-.check{
-  width: 10%;
-  text-align: center;
+.item-holder{
+  background: linear-gradient(#FAF3DD, #F2EBD5);
+  border-top: solid 2px #D1CBB8;
 }
-.delete-item{
-  padding-right: 2%;
+.item-info{
+  color: black;
 }
-footer{
-  position: fixed;
-  left: 0px;
-  bottom: 0px;
-  padding: 3%;
+.item-holder td{
+  color: black;
+  font-size: 1.4em;
+  padding: 1%;
+  width: 25%;
+  text-align: left;
+  text-overflow: ellipsis;
 }
 
 .total{
   border-top: solid #C8D5B9 2px;
-  background-color: #FAF3DD;
+  background: linear-gradient(#FAF3DD, #F2EBD5);
   padding: 0 3%;
   font-size: 2em;
   text-align: right;
@@ -136,3 +106,22 @@ footer{
 .total > *{
   display: inline;
 }
+/*Buttons*/
+a{
+  text-decoration: none;
+  color: inherit;
+}
+.item-info:hover{
+  background-color: #D1CBB8;
+}
+.nav-image{
+  height: 48px;
+  width: 48px;
+}
+.search-image{
+  box-shadow: 2px 2px 8px #888888;
+}
+
+
+
+

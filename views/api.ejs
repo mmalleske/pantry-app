@@ -1,32 +1,33 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Pacifico|Quicksand" rel="stylesheet">
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h2>Request from Wal-Mart API</h2>
-    <form method="post" action="/api/">
+<% include partials/header %>
+  <div class="list-header">
+    <h2>Search your store</h2>
+    <form class="item-form" method="post" action="/api/">
       <input type="text" name="name" placeholder="Search your Store">
       <input class="button" type="submit" value="Search">
     </form>
-    <div class="items-list">
-    <% for (var i = 0; i < newSearch.length; i++ ){ %>
-      <div>
-        <h3><%= newSearch[i].name %></h3>
-        <p><%= newSearch[i].price %></p>
-        <img src=<%= newSearch[i].image %> alt='image'>
-        <form action='/api/add-search/:id' method="post">
-          <input class="button" type='submit' name='Add All ' value="Add All to Current List">
-        </form>
-      </div>
-    <% } %>
+  </div>
+  <table>
+    <thead>
+      <tr>
 
+      </tr>
+    </thead>
+    <tbody>
+      <% for (var i = 0; i < newSearchItem.length; i++ ){ %>
+      <tr class="item-holder">
+        <td><a href=<%= newSearchItem[i].largeImage %>><img class="search-image" src=<%= newSearchItem[i].image %> alt='image'></a></td>
+        <td><%= newSearchItem[i].name %></td>
+        <td>$<%= newSearchItem[i].price %></td>
+        <td>
+          <form action='/api/add-search/<%= newSearchItem[i]._id %>' method="post">
+            <input class="button" type='submit' name='Add All ' value="Add to Current List">
+          </form>
+        </td>
+      </tr>
+      <% } %>
+    </tbody>
 
     <footer>
-      <a class='button' href='/saved-lists/current'>Current List</a>
-      <a class='button' href='/saved-lists'>My Lists</a>
     </footer>
 
   </body>

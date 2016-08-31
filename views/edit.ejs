@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Pacifico|Quicksand" rel="stylesheet">
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1 class="top-heading">Edit this Item</h1>
+<% include partials/header %>
+    <div class="list-header">
+      <h2>Edit this Item</h2>
+    </div>
     <form method="post" action="/saved-lists/<%= savedList._id %>/list_items/<%= item._id %>">
       <input type="hidden" name="_method" value="patch">
       <input type="text" name="name" value="<%= item.name %>">
